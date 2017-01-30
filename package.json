@@ -1,0 +1,117 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "carwings@git+https://github.com/blandman/carwings.git",
+        "scope": null,
+        "escapedName": "carwings",
+        "name": "carwings",
+        "rawSpec": "git+https://github.com/blandman/carwings.git",
+        "spec": "git+https://github.com/blandman/carwings.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:blandman/carwings.git",
+          "sshUrl": "git+ssh://git@github.com/blandman/carwings.git",
+          "httpsUrl": "git+https://github.com/blandman/carwings.git",
+          "gitUrl": "git://github.com/blandman/carwings.git",
+          "shortcut": "github:blandman/carwings",
+          "directUrl": "https://raw.githubusercontent.com/blandman/carwings/master/package.json"
+        }
+      },
+      "/Users/daddy/HomeKit-Carwings"
+    ]
+  ],
+  "_from": "git+https://github.com/blandman/carwings.git",
+  "_id": "carwings@0.1.0",
+  "_inCache": true,
+  "_location": "/carwings",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "carwings@git+https://github.com/blandman/carwings.git",
+    "scope": null,
+    "escapedName": "carwings",
+    "name": "carwings",
+    "rawSpec": "git+https://github.com/blandman/carwings.git",
+    "spec": "git+https://github.com/blandman/carwings.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:blandman/carwings.git",
+      "sshUrl": "git+ssh://git@github.com/blandman/carwings.git",
+      "httpsUrl": "git+https://github.com/blandman/carwings.git",
+      "gitUrl": "git://github.com/blandman/carwings.git",
+      "shortcut": "github:blandman/carwings",
+      "directUrl": "https://raw.githubusercontent.com/blandman/carwings/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/blandman/carwings.git#b769dcfc64c6c3800ae888af4a70f183d8283e5a",
+  "_shasum": "b43d44340cf38ade8182c5ff2e51f80c31b5f2a1",
+  "_shrinkwrap": null,
+  "_spec": "carwings@git+https://github.com/blandman/carwings.git",
+  "_where": "/Users/daddy/HomeKit-Carwings",
+  "author": {
+    "name": "Joshua Perry",
+    "email": "josh@pdk.io"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": 6.9
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "transform-object-rest-spread",
+        {
+          "useBuiltIns": true
+        }
+      ]
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/joshperry/carwings/issues"
+  },
+  "dependencies": {
+    "asyncp": "^0.8.0",
+    "axios": "^0.15.3",
+    "lodash": "^4.17.2"
+  },
+  "description": "A javascript library for interacting with the Nissan Leaf Carwings API.",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-preset-env": "^1.0.2"
+  },
+  "gitHead": "b769dcfc64c6c3800ae888af4a70f183d8283e5a",
+  "homepage": "https://github.com/joshperry/carwings#readme",
+  "keywords": [
+    "carwings",
+    "nissan",
+    "leaf"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "name": "carwings",
+  "optionalDependencies": {},
+  "readme": "# Carwings Javascript API Library and Tools\n\nThis code is meant for interacting with the Nissan Leaf Carwings API. This API allows one to query a swath of information about the vehicle, some of it cached in the cloud and some pulled directly from the vehicle over its cellular connectivity. The API also allows modifying a limited set of vehicle states (AC on/off, charge start/stop).\n\nIt is written for [node.js](https://nodejs.org) and uses the [babel transpiler](https://babeljs.io) mainly for taking advantage of es6 modules and es8(?) async/await to make network ops more pleasant to work with.\n\n## Getting Started\n\nThe code in `src` is the non-transpiled source, and in `lib` can be found the transpiled library that is ready to be `require()`'d directly from node >= ^6.9 (may work on older, but this is untested).\n\nAfter cloning the code (and installing node.js) simply run `npm install` to install required dependencies.\n\n## Development\n\nThere are currently a couple simple helper scripts defined in `package.json`:\n\n- `npm run build` will transpile from `src` to `lib`\n- `npm run bstart` will run the code from `src` directly using [babel-node](https://babeljs.io/docs/usage/cli/#babel-node) for a simplified dev cycle.\n\n## License\n\nMIT, yo.\n",
+  "readmeFilename": "readme.markdown",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshperry/carwings.git"
+  },
+  "scripts": {
+    "bstart": "babel-node src/index.js",
+    "build": "babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.0"
+}
