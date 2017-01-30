@@ -107,16 +107,29 @@ const longpollrequest = _.curry((action, pollaction, session, data) => {
 });
 
 const batteryrecords = session => session('BatteryStatusRecordsRequest', { RegionCode });
+const batterystatuscheckrequest = session => session('BatteryStatusCheckRequest', { RegionCode });
+const batterystatuscheck = session => longpollrequest('BatteryStatusCheckResultRequest', 'BatteryStatusCheckResultRequest', session, { RegionCode });
 
 const hvacon = session => longpollrequest('ACRemoteRequest', 'ACRemoteResult', session, { RegionCode });
 const hvacoff = session => longpollrequest('ACRemoteOffRequest', 'ACRemoteOffResult', session, { RegionCode });
+const hvacstatus = session => session('RemoteACRecordsRequest', { RegionCode });
 
-(async function() {
-  let session = await loginSession('bobbytables@gmail.com', 'Tr0ub4dor&3');
+
+//Create the api session
+exports.loginSession = loginSession;
+exports.hvacOn = hvacon;
+exports.hvacOff = hvacoff;
+exports.hvacStatus = hvacstatus;
+exports.batteryRecords = batteryrecords;
+exports.batteryStatusCheckRequest = batterystatuscheckrequest;
+exports.batteryStatusCheck = batterystatuscheck;
+
+//(async function() {
+  //let session = await loginSession('bobbytables@gmail.com', 'Tr0ub4dor&3');
 
   //let data = await batteryrecords(session);
 
-  let data = await hvacon(session);
+  //let data = await hvacon(session);
 
   //let carsession = data => session({ ...data, profile.VehicleInfoList.vehicleInfo[0].vin });
 
@@ -222,5 +235,5 @@ const hvacoff = session => longpollrequest('ACRemoteOffRequest', 'ACRemoteOffRes
   */
 
 
-  console.log(data);
-}());
+  //console.log(data);
+//}());
