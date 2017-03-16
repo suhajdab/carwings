@@ -45,7 +45,6 @@ carwings.loginSession('username', 'password', 'regioncode').then(function(sessio
 `regioncode` options: NNA = USA, NE = Europe, NCI = Canada, NMA = Australia, NML = Japan.
 ([source](https://github.com/jdhorne/pycarwings2/blob/master/pycarwings2/pycarwings2.py#L19-L23))
 
-
 ## Development
 
 There are currently a couple simple helper scripts defined in `package.json`:
