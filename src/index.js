@@ -9,7 +9,7 @@ axios.defaults.baseURL = 'https://gdcportalgw.its-mo.com';
 process.on('unhandledRejection', r => console.log(r));
 
 const initial_app_strings = 'geORNtsZe5I4lRGjG9GZiA';
-const RegionCode = 'NNA';
+const defaultRegionCode = 'NNA';
 const lg = 'en-US';
 const tz = 'America/Denver';
 
@@ -23,7 +23,7 @@ export async function api(action, data) {
   let resp = await axios.post(`/gworchest_160803A/gdc/${action}.php`, querystring.stringify(data));
 
   if(resp.data.status === 200) {
-    console.log(`api ${action} 👍`);
+    console.log(`🍃 api ${action} 👍`);
     return resp.data;
   } else {
     console.log(`api ${action} 👎\r\n`, resp);
@@ -48,6 +48,10 @@ function getvin(profile) {
   return profile.VehicleInfoList.vehicleInfo[0].vin;
 }
 
+function getregioncode(profile) {
+	return profile.CustomerInfo.RegionCode;
+}
+
 const acompose = (fn, ...rest) =>
   rest.length
     ? async (...args) =>
@@ -62,9 +66,9 @@ const challenge = acompose(
 
 
 // rawCredentials => apiCredentials
-const genCredentials = async (UserId, password) => {
+const genCredentials = async (UserId, password, RegionCode = defaultRegionCode) => {
   return _.compose(
-    Password => ({ UserId, Password }),
+    Password => ({ UserId, Password, RegionCode }),
     blowpassword(await challenge()),
   )(password);
 };
@@ -72,8 +76,7 @@ const genCredentials = async (UserId, password) => {
 // apiCredentials => profile
 const userLogin = async (credentials) => {
   return await api('UserLoginRequest', {
-    RegionCode,
-    initial_app_strings,
+	  initial_app_strings,
     ...credentials
   });
 };
@@ -83,36 +86,36 @@ const authenticate = acompose(userLogin, genCredentials);
 
 // rawCredentials => (apioperation => apiresults)
 const loginSession = acompose(
-  s => async (action, data) => await api(action, { ...s, ...data }),
-  p => ({ custom_sessionid: getsessionid(p), VIN: getvin(p) }),
+  s => async (action) => await api(action, { ...s }),
+  p => ({ custom_sessionid: getsessionid(p), VIN: getvin(p), RegionCode: getregioncode(p) }),
   authenticate,
 );
 
-const pollresult = _.curry(async (session, action, data, resultKey) => {
+const pollresult = _.curry(async (session, action, resultKey) => {
   let result;
   do {
     await sleep(5000);
-    result = await session(action, { resultKey, ...data });
+    result = await session(action, { resultKey });
   } while(result.responseFlag !== '1');
 
   return result;
 });
 
-const longpollrequest = _.curry((action, pollaction, session, data) => {
+const longpollrequest = _.curry((action, pollaction, session) => {
   return acompose(
-    pollresult(session, pollaction, data),
+    pollresult(session, pollaction),
     r => r.resultKey,
-    () => session(action, data),
+    () => session(action),
   )();
 });
 
-const batteryrecords = session => session('BatteryStatusRecordsRequest', { RegionCode });
-const batterystatuscheckrequest = session => session('BatteryStatusCheckRequest', { RegionCode });
-const batterystatuscheck = session => longpollrequest('BatteryStatusCheckResultRequest', 'BatteryStatusCheckResultRequest', session, { RegionCode });
+const batteryrecords = session => session('BatteryStatusRecordsRequest');
+const batterystatuscheckrequest = session => session('BatteryStatusCheckRequest');
+const batterystatuscheck = session => longpollrequest('BatteryStatusCheckResultRequest', 'BatteryStatusCheckResultRequest', session);
 
-const hvacon = session => longpollrequest('ACRemoteRequest', 'ACRemoteResult', session, { RegionCode });
-const hvacoff = session => longpollrequest('ACRemoteOffRequest', 'ACRemoteOffResult', session, { RegionCode });
-const hvacstatus = session => session('RemoteACRecordsRequest', { RegionCode });
+const hvacon = session => longpollrequest('ACRemoteRequest', 'ACRemoteResult', session);
+const hvacoff = session => longpollrequest('ACRemoteOffRequest', 'ACRemoteOffResult', session);
+const hvacstatus = session => session('RemoteACRecordsRequest');
 
 
 //Create the api session
