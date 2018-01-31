@@ -113,8 +113,8 @@ const batteryrecords = session => session('BatteryStatusRecordsRequest');
 const batterystatuscheckrequest = session => session('BatteryStatusCheckRequest');
 const batterystatuscheck = session => longpollrequest('BatteryStatusCheckResultRequest', 'BatteryStatusCheckResultRequest', session);
 
-const hvacon = session => longpollrequest('ACRemoteRequest', 'ACRemoteResult', session);
-const hvacoff = session => longpollrequest('ACRemoteOffRequest', 'ACRemoteOffResult', session);
+const hvacon = session => longpollrequest('ACRemoteRequest', session);
+const hvacoff = session => longpollrequest('ACRemoteOffRequest', session);
 const hvacstatus = session => session('RemoteACRecordsRequest');
 
 
