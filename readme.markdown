@@ -15,7 +15,7 @@ After cloning the code (and installing node.js) simply run `npm install` to inst
 ```
 var carwings = require('carwings');
 
-carwings.loginSession('username', 'password').then(function(session){
+carwings.loginSession('username', 'password', 'regioncode').then(function(session){
   //Get cached current LEAF status
   carwings.batteryRecords(session).then(function(status){
     console.log(status);
@@ -42,6 +42,9 @@ carwings.loginSession('username', 'password').then(function(session){
   });
 });
 ```
+`regioncode` options: NNA = USA, NE = Europe, NCI = Canada, NMA = Australia, NML = Japan.
+([source](https://github.com/jdhorne/pycarwings2/blob/master/pycarwings2/pycarwings2.py#L19-L23))
+
 
 ## Development
 
