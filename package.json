@@ -80,13 +80,13 @@
   "dependencies": {
     "asyncp": "^0.8.0",
     "axios": "^0.15.3",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.10"
   },
   "description": "A javascript library for interacting with the Nissan Leaf Carwings API.",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
-    "babel-preset-env": "^1.0.2"
+    "babel-preset-env": "^1.7.0"
   },
   "gitHead": "b769dcfc64c6c3800ae888af4a70f183d8283e5a",
   "homepage": "https://github.com/joshperry/carwings#readme",

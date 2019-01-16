@@ -20,7 +20,7 @@ function sleep(ms = 0) {
 }
 
 export async function api(action, data) {
-  let resp = await axios.post(`/gworchest_160803A/gdc/${action}.php`, querystring.stringify(data));
+  let resp = await axios.post(`/gworchest_160803EC/gdc/${action}.php`, querystring.stringify(data));
 
   if(resp.data.status === 200) {
     console.log(`🍃 api ${action} 👍`);
